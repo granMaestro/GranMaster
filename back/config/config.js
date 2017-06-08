@@ -1,3 +1,3 @@
 module.exports={
-	'database': 'mongodb://localhost/entreLineas'
+	'database': 'mongodb://localhost/gran_master'
 }

@@ -5,7 +5,6 @@
   "main": "server.js",
   "author": "fernando ortiz <fernandooj@ymail.com>",
   "dependencies": {
-
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.1",
     "connect-flash": "^0.1.1",
@@ -17,6 +16,8 @@
     "mongoose": "^4.6.0",
     "mongoose-file": "0.0.2",
     "morgan": "^1.7.0",
+    "nodemailer": "^4.0.1",
+    "nodemon": "^1.11.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0"
   }
