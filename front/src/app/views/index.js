@@ -7,7 +7,7 @@ import actionPerfil       from './perfil/actionPerfil';
 import actionCategoria       from './categoria/actionCategoria';
 import Ingresar       from './ingresar/ingresar';
 import Cuenta       from './cuenta/cuenta';
-import Libro       from './libro/libro';
+import Test       from './test/test';
 
 export {
   About,
@@ -17,5 +17,5 @@ export {
   actionCategoria,
   Ingresar,
   Cuenta,
-  Libro
+  Test
 };

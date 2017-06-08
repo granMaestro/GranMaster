@@ -5,6 +5,8 @@ librerias de reactjs
 */
 /////////////////////////
 import React, {Component} from 'react';
+import axios from 'axios';
+
 
 
 ////////////////////////
@@ -14,18 +16,40 @@ creo el componente
 /////////////////////////
 
 
-class Test extends Component{
+export default class Test extends Component{
+	constructor(props){
+		super(props)
+		this.state={
+			datos:[]
+		}
+
+		////////////////////////////////////////////////////
+		//* me conecto al servicio *//	
+		////////////////////////////////////////////////////
+		axios.get('http://localhost:8080/x/v1/cat/categorias')
+		.then((respuesta)=>{
+			console.log(respuesta.data)
+			this.setState({datos:respuesta.data})
+		})
+		///////////////////////////////////////////////////
+	this.actualizar = this.actualizar.bind(this)
+	}
 	render(){
+		console.log(this.state.datos)
 		return(
-			<h1>
-				prueba test 
-			</h1>		
+			<h1 onClick={this.actualizar.bind(this)}>
+				{this.state.datos.status} 
+			</h1>	
+
 		)
 	}
+	actualizar(){
+		this.setState({prueba: 2345678})
+	}
+ 
 } 
 
-export default Test
- 
+
 
 
 /*1 - crear el componente

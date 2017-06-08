@@ -15,7 +15,7 @@ import {
   Cuenta,
   actionCategoria,
   Ingresar,
-  Libro,
+  Test,
   PageNotFound
 }                               from '../views';
 
@@ -30,7 +30,7 @@ const MainRoutes = () => {
       <Route path="/perfil" component={actionPerfil} />
       <Route path="/cuenta" component={Cuenta} />
       <Route path="/categoria" component={actionCategoria} />
-      <Route path="/nuevo_libro" component={Libro} />
+      <Route path="/test" component={Test} />
       <Route path="*" component={PageNotFound} />
     </Switch>
   );
