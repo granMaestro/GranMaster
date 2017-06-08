@@ -1,0 +1,24 @@
+/////// fondo  ////////
+.registro-container{
+	background: url($url + 'registro-fondo.jpg');
+	text-align: center;
+	padding: 40px 0;
+	input{
+		width: 409px;
+		margin: 40px auto;
+		padding: 28px;
+		font-size: 24px;
+		text-align: center;
+	}
+	.form-error.is-visible{
+	    background: #177393;
+	    color: white;
+	    padding: 13px 20px;
+	    margin: 20px auto;
+	    display: block;
+	    width: 275px;
+	}
+	.message{
+		margin:10px 0;
+	}
+}

@@ -1,0 +1,39 @@
+.nuevo-libro{
+	.clase-publicacion{
+		span{
+			background-size: cover;
+			height: 120px;
+			width: 121px;
+			display: inline-block;
+			margin: 4px 32px;
+			cursor: pointer;
+			transition:.3s;
+			-webkit-transition:.3s;
+			-moz-transition:.3s;
+		}
+		span:hover{
+			background-size: cover;
+		}
+	}
+	.publicacion1{
+		background: url($url+"icon1.png");
+	}
+	.publicacion1:hover,
+	.publicacion1-focus{
+		background: url($url+"icon1_hover.png");
+	}
+	.publicacion2{
+		background: url($url+"icon2.png");
+	}
+	.publicacion2:hover,
+	.publicacion2-focus{
+		background: url($url+"icon2_hover.png");
+	}
+	.publicacion3{
+		background: url($url+"icon3.png");
+	}
+	.publicacion3:hover,
+	.publicacion3-focus{
+		background: url($url+"icon3_hover.png");
+	}
+}

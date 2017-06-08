@@ -1,0 +1,23 @@
+.registro-perfil{
+	.form-group{
+		div{
+			div{
+				float: left;
+				width: 94%;
+				input, textarea{
+					border-radius: 10px;
+					background: #d8d8d8;
+					border: none;
+					color: #585858;
+				}
+			}
+			span.fa{
+				position: relative;
+				left: -26px;
+				top: 6px;
+				color: black;
+			}	
+		}		
+	}
+
+}
