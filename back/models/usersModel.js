@@ -21,6 +21,7 @@ let User = new Schema({
 	nacimiento :   String,
 	pais:          String,
 	ciudad:        String,
+	tipo:          ['Root217', 'Admin324', '', 'Sus937', 'pac745', 'Pad546'],
 	createdAt: 	   { type: String, default: moment().format('YYYY-MM-DD h:mm:ss') },	 
 
 	/////****** suscriptores ****/////

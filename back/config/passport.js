@@ -41,6 +41,8 @@ module.exports =  function(passport){
                         let newUser = new User();
                         newUser.local.usuario    =  req.body.usuario,
                         newUser.local.password   =  newUser.generateHash(password),
+
+                        newUser.tipo           =  req.body.tipo,
                         newUser.nombre           =  req.body.nombre,
                         newUser.apellido         =  req.body.apellido,
                         newUser.status           =  req.body.status,
