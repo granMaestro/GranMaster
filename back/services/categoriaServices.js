@@ -3,13 +3,12 @@
 ///////////////////////////////////////////////////////////////////////
 ///////////***********     llamo al esquema        ****///////////////
 //////////////////////////////////////////////////////////////////////
-let Categoria = require('./../models/categoriasModel.js');
-
+let Categoria = require('./../models/categoriaModel.js');
 
 ///////////////////////////////////////////////////////////////////////////
 ////////******     creo la clase que hace los servicios        ****//////////
 ///////////////////////////////////////////////////////////////////////////
-class categoriasServices{
+class categoriaServices{
 	constructor(){
 
 	}
@@ -20,12 +19,12 @@ class categoriasServices{
 		var newCategoria = new Categoria({
 			name: categoria.name,
 			slug: categoria.slug,
-			descripcion: categoria.descripcion
+			descripcion: categoria.descripcion,
 		});
 		newCategoria.save(callback)
+
 	}
 	modify(categoria, id, callback){
-		console.log(categoria)
 		Categoria.findByIdAndUpdate(id, {$set: {
                             'name'        : categoria.name,
                             'slug'        : categoria.slug,
@@ -43,6 +42,4 @@ class categoriasServices{
 	}
 }
 
-
-
-module.exports = new categoriasServices();
+module.exports = new categoriaServices();

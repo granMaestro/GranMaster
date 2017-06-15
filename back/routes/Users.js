@@ -26,10 +26,10 @@ module.exports = function(app, passport){
 
     ///////////////////////////////////////////////////////////////////////////
     /*
-    Guardar solo email
+    crear usuarios
     */
     ///////////////////////////////////////////////////////////////////////////
-    app.post('/x/v1/user/sign_up', function(req, res){
+    /*app.post('/x/v1/user/sign_up', function(req, res){
         userServices.getEmail(req.body, function(err, users){
             if (users) {
                 return res.json({ status: 'FAIL', message: 'este email ya existe' });    
@@ -56,72 +56,51 @@ module.exports = function(app, passport){
                 })  
             }  
         })
-    })
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    /*
-    activar usuario despues de hacer click en el email
-    */
-    ///////////////////////////////////////////////////////////////////////////
-    app.get('/x/v1/user/token', function(req, res, next){
-            userServices.verificaToken(req.query, function(err, token){
-                if(!token){
-                    return res.json({ status: 'FAIL', message: 'Usuario Innactivo'}) 
-     
-                } else{
-                    userServices.activaUsuario(req.query.email, function(err, Activado){
-                        if (Activado) {
-                            return res.redirect('/perfil'); 
-                            return res.json({ status: 'SUCCESS', message: 'Usuario Activado', user: req.query.email });                
-                        }
-                    })
-                   req.session.user=req.query.email 
-                }
-            }) 
-    })
-
-
+    })*/
 
     ///////////////////////////////////////////////////////////////////////////
     /*
-    Formulario despues que se activa, actualiza su perfil
+    crear usuario
     */
     ///////////////////////////////////////////////////////////////////////////
 
-    app.post('/x/v1/user/sign_up_profile', passport.authenticate('local-signup', {
-        successRedirect : '/x/v1/user/success_sign_up_profile',  // redirect to the secure profile section
-        failureRedirect : '/x/v1/user/fail_sign_up_profile',   // redirect back to the signup page if there is an error
-        failureFlash : true  
+    app.post('/x/v1/user/sign_up', passport.authenticate('local-signup', {
+        successRedirect : '/x/v1/user/success_sign_up',  // redirect to the secure profile section
+        failureRedirect : '/x/v1/user/fail_sign_up',   // redirect back to the signup page if there is an error
+        failureFlash : false  
     }))
- 
 
 
     ///////////////////////////////////////////////////////////////////////////
     /*
-    si edito el perfil exitosamente 
+    SE creo exitosamente
     */
     ///////////////////////////////////////////////////////////////////////////
-    app.get('/x/v1/user/success_sign_up_profile', function(req, res) {    
-        res.json({ status: 'SUCCESS', message: 'Usuario Actualizado', user: req.user});        
+    app.get('/x/v1/user/success_sign_up', function(req, res) {    
+        res.json({ status: 'SUCCESS', message: 'Usuario Creado', user: req.user});        
     });
 
 
     ///////////////////////////////////////////////////////////////////////////
     /*
-    si NO edito el perfil exitosamente 
+    NO SE creo exitosamente
     */
     ///////////////////////////////////////////////////////////////////////////
-    app.get('/x/v1/user/fail_sign_up_profile', function(req, res) {    
-        res.json({ status: 'FAIL', message: res});        
+    app.get('/x/v1/user/fail_sign_up', function(req, res) {    
+        res.json({ status: 'FAIL', message: 'usuario ya existe'});        
     });
 
 
+    ///////////////////////////////////////////////////////////////////////////
+    /*
+    LOGIN
+    */
+    ///////////////////////////////////////////////////////////////////////////
 
     app.post('/x/v1/user/login', passport.authenticate('local-login', {
-        successRedirect : '/x/v1/user/profile', // redirect to the secure profile section
-        failureRedirect : '/x/v1/user/loginFail', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
+        successRedirect : '/x/v1/user/perfil',  
+        failureRedirect : '/x/v1/user/loginFail',  
+        failureFlash : true  
     }));
 
     ///////////////////////////////////////////////////////////////////////////
@@ -129,15 +108,9 @@ module.exports = function(app, passport){
     si el login es exitoso
     */
     ///////////////////////////////////////////////////////////////////////////
-    app.get('/x/v1/user/profile', function(req, res){
-        if (req.user) {
-            res.json({status:'SUCCESS', user: req.user})    
-        }else{
-            res.json({status:'SUCCESS', user: { local: {email:req.session.user } } })
-        }   
+    app.get('/x/v1/user/perfil', function(req, res){
+        res.json({status:'SUCCESS', user: req.user})    
     })
-
-
 
 
     ///////////////////////////////////////////////////////////////////////////

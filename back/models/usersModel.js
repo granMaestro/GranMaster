@@ -6,27 +6,45 @@
 /////////////////////////////////////////////////////////////////////////
 let mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
-
+let moment   = require('moment');
+let Schema   = mongoose.Schema;
 
 /////////////////////////////////////////////////////////////////////////
 /********** genero la base la coleccion llamada users   ****************/
 /////////////////////////////////////////////////////////////////////////
-let UserSchema = mongoose.Schema({
+let User = new Schema({
+	/////****** todo tipo de usuarios ****/////
+	nombre:        String,
+	apellido:      String,
+	status:        String,
+	token:         String,
+	nacimiento :   String,
+	pais:          String,
+	ciudad:        String,
+	createdAt: 	   { type: String, default: moment().format('YYYY-MM-DD h:mm:ss') },	 
+
+	/////****** suscriptores ****/////
+	institucion :  String,
+	especialidad:  String,	
+	direccion:     String,
+	telefono:      String,
+	email: 		   String,
+	valor_usuario: String,	
+	valor_unico	:  String,
+
+
+	/////****** pacientes ****/////
+	institucion_educativa: String,
+	grado : 	   String,
+
+	/////****** padres ****/////
+	parentesco:    String,
+	id_hijo:       {type: Schema.Types.ObjectId, ref:"User"},
+
+	/////****** login ****/////
 	local:{
-		name:        String,
-		email:       String,
-		password:    String,
-		status:      String,
-		token:       String,
-		nacimiento : String,
-		sexo :       String,
-		sobre_mi:    String,
-		pais:        String,
-		ciudad:      String,
-		direccion:   String,
-		telefono:    String,
-		createdAt:   { type: Date, default: Date.now },
-		updatedAt:   { type: Date, default: Date.now }
+		usuario:   String,
+		password:  String,
 	}
 });
 
@@ -34,12 +52,12 @@ let UserSchema = mongoose.Schema({
 /////////////////////////////////////////////////////////////////////////
 /********** genero el flash para encriptar la contraseña  **************/
 /////////////////////////////////////////////////////////////////////////
-UserSchema.methods.generateHash = function(password){
+User.methods.generateHash = function(password){
 	return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
 }
-UserSchema.methods.validPassword = function(password) {
+User.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
 
 
-module.exports =  mongoose.model('User', UserSchema) 
+module.exports =  mongoose.model('User', User) 

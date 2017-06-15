@@ -2,7 +2,7 @@
 //let localStrategy = require('passport-local').Strategy;
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/usersModel.js');
-
+let moment   = require('moment');
 
 module.exports =  function(passport){
 
@@ -21,39 +21,50 @@ module.exports =  function(passport){
     passport.use('local-signup', new LocalStrategy(
         {
             // by default, local strategy uses username and password, we will override with email
-            usernameField : 'email',
+            usernameField : 'usuario',
             passwordField : 'password',
-            nameField : 'name',
             passReqToCallback : true // allows us to pass back the entire request to the callback
         }, 
-        function(req, email, password, done) {
+        function(req, usuario, password, done) {
+           console.log(usuario)
             // asynchronous
             // User.findOne wont fire unless data is sent back
             process.nextTick(function() {
 
-                var newUser = new User();
-                User.findOne({ 'local.email' :  email }, function(error, user) {
-                    if(error)
-                        return done(error);  
-                    if(!user){
-                        return done(null, {status:'FAIL'});     
+                User.findOne({ 'local.usuario' :  usuario }, function(err, user) {
+
+                    if(err)
+                        return done(err);  
+                    if(user){
+                        return done(null, false, req.flash('signupMessage', 'That usuario is already taken.'));    
                     }else{
-                        User.findByIdAndUpdate(user._id, {$set: {
-                            'local.name':       req.body.name,
-                            'local.password':   newUser.generateHash(req.body.password),
-                            'local.nacimiento': req.body.nacimiento,
-                            'local.sexo':       req.body.sexo,
-                            'local.sobre_mi':   req.body.sobre_mi,
-                            'local.pais':       req.body.pais,
-                            'local.ciudad':     req.body.ciudad,
-                            'local.direccion':  req.body.direccion,
-                            'local.telefono':   req.body.telefono,
-                            'local.updatedAt':  new Date()
-                        }}, function(err, userList) {
+                        let newUser = new User();
+                        newUser.local.usuario    =  req.body.usuario,
+                        newUser.local.password   =  newUser.generateHash(password),
+                        newUser.nombre           =  req.body.nombre,
+                        newUser.apellido         =  req.body.apellido,
+                        newUser.status           =  req.body.status,
+                        newUser.nacimiento       =  req.body.nacimiento,
+                        newUser.pais             =  req.body.pais,
+                        newUser.ciudad           =  req.body.ciudad,
+                        newUser.institucion      =  req.body.institucion,
+                        newUser.especialidad     =  req.body.especialidad,
+                        newUser.direccion        =  req.body.direccion,
+                        newUser.telefono         =  req.body.telefono,
+                        newUser.email            =  req.body.email,
+                        newUser.valor_usuario    =  req.body.valor_usuario,
+                        newUser.valor_unico      =  req.body.valor_unico,
+                        newUser.institucion_educativa= req.body.institucion_educativa,
+                        newUser.grado= req.body.grado,
+                        newUser.parentesco= req.body.parentesco,
+                        newUser.id_hijo= req.body.id_hijo,
+                        newUser.createdAt =  moment().format('YYYY-MM-DD h:mm:ss')
+    
+                        newUser.save(function(err) {
                             if (err)
                                 throw err;
-                            return done(null, userList);  
-                        });
+                            return done(null, newUser);
+                        });  
                     }
                 })
             });
@@ -61,23 +72,20 @@ module.exports =  function(passport){
     ));
 
 
-// =========================================================================
-    // LOCAL LOGIN =============================================================
-    // =========================================================================
-    // we are using named strategies since we have one for login and one for signup
-    // by default, if there was no name, it would just be called 'local'
+    //////////////////////////////////////////////////////////////////////////////////////////
+    /**
+        GENERO EL LOGIN LOCAL Y DEVUELVO LA SESION DEL USUARIOS DESPUES QUE ACTIVO EL TOKEN
+    **/
+    //////////////////////////////////////////////////////////////////////////////////////////
 
     passport.use('local-login', new LocalStrategy({
-        // by default, local strategy uses username and password, we will override with email
-        usernameField : 'email',
+        usernameField : 'usuario',
         passwordField : 'password',
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
-    function(req, email, password, done) { // callback with email and password from our form
-
-        // find a user whose email is the same as the forms email
-        // we are checking to see if the user trying to login already exists
-        User.findOne({ 'local.email' :  email }, function(err, user) {
+    function(req, usuario, password, done) { // callback with usuario and password from our form
+        console.log(usuario)
+        User.findOne({ 'local.usuario' :  usuario }, function(err, user) {
             // if there are any errors, return the error before anything else
             if (err)
                 return done(err);
@@ -85,7 +93,6 @@ module.exports =  function(passport){
             // if no user is found, return the message
             if (!user)
                 return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
-
             // if the user is found but the password is wrong
             if (!user.validPassword(password))
                 return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata

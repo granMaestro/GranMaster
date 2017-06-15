@@ -10,7 +10,7 @@ let make_upload_to_model = filePluginLib.make_upload_to_model;
   
 
 
-let uploads_base = path.join(__dirname, "uploads");
+let uploads_base = path.join(__dirname, "public/uploads");
 let uploads = path.join(uploads_base, "u");
 
 //////////////////////////////////////////////////////////////////////
@@ -23,7 +23,7 @@ let uploads = path.join(uploads_base, "u");
 //////////////////////////////////////////////////////////////////////////////
 ////////***********     creo el esquema / categorias        ****//////////////
 //////////////////////////////////////////////////////////////////////////////
-let Categorias = new Schema({
+let Categoria = new Schema({
 	name:        String,
 	slug:        String,
 	descripcion: String,
@@ -36,13 +36,9 @@ let Categorias = new Schema({
 //////////////////////////////////////////////////////////////////////////////
 ////////***********     funcion que sube la imagen	        ****//////////////
 //////////////////////////////////////////////////////////////////////////////
-Categorias.plugin(filePlugin, {
-    name: "photo",
-    upload_to: make_upload_to_model(uploads, 'photos'),
-    relative_to: uploads_base
-});
+ 
 
 //////////////////////////////////////////////////////////////////////////////
 ////////***********    exporto el esquema        ****/////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-module.exports= mongoose.model('Categorias', Categorias)
+module.exports= mongoose.model('Categoria', Categoria)
