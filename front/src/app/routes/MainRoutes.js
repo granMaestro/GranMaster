@@ -15,6 +15,7 @@ import {
   /////// administrador ///////
   actionPrueba,
   actionPregunta,
+  actionUsuario,
 
   /////// site ///////
   actionPruebaSite,
@@ -29,8 +30,9 @@ const MainRoutes = () => {
       <Route exact path="/ingresar" component={Ingresar} />
 
       {/*////////////////////ADMINISTRADOR//////////////////////////////*/}
-      <Route exact path="/prueba" component={actionPrueba} />
+      <Route exact path="/prueba"   component={actionPrueba} />
       <Route exact path="/pregunta" component={actionPregunta} />
+      <Route exact path="/usuario"  component={actionUsuario} />
 
 
       {/*////////////////////SITE//////////////////////////////*/}

@@ -13,6 +13,7 @@ import Ingresar       from './ingresar/ingresar';
 //////////////////////////////////////////////////////////////////////////////////////////////////
 import actionPrueba       from './admin/prueba/actionPrueba';
 import actionPregunta       from './admin/pregunta/actionPregunta';
+import actionUsuario       from './admin/usuario/actionUsuario';
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -27,7 +28,7 @@ export {
   Ingresar,
   actionPregunta,
   actionPrueba,
-
+  actionUsuario,
 
   //////site//////
   actionPruebaSite,

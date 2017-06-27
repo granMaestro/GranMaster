@@ -12,18 +12,6 @@ let transporter = nodemailer.createTransport({
 
 module.exports = function(app, passport){
  
-    /*app.post('/signUp',
-    	passport.authenticate('local-signup', {failWithError:true}),
-    	function(req, res, next){
-    		if (req.xhr) {
-    			return res.json({id: req.user.id})
-    		}
-            //return res.redirect('/')
-    	}
-    )*/
-
-
-
     ///////////////////////////////////////////////////////////////////////////
     /*
     crear usuarios
@@ -127,5 +115,21 @@ module.exports = function(app, passport){
         res.json({ status: 'FAIL', mensaje: 'datos incorrectos' });   
     })
       
-         
+    ///////////////////////////////////////////////////////////////////////////
+    /*
+    si el login es exitoso
+    */
+    ///////////////////////////////////////////////////////////////////////////
+    app.get('/x/v1/user/users', function(req, res){
+        userServices.get(function(err, usuario){
+            if(err){
+                res.json({status:'FAIL', mensaje: "no se pudo cargar los usuarios"}) 
+            }else{
+                res.json({status:'SUCCESS', user: usuario}) 
+            }
+        })
+           
+    })
+
+
 }

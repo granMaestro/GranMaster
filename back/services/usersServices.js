@@ -26,9 +26,9 @@ class userServices {
 	}
 
 	activaUsuario(user, callback){
-		console.log(user)
 		User.update({'local.email': user}, {'local.status':'Active'},  callback)
 	}
+	
 
 }
 
