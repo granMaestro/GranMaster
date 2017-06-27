@@ -13,7 +13,7 @@ class PageNotFound extends PureComponent {
       <AnimatedView>
         <Jumbotron>
           <h1>
-            Sorry this page does not exists...
+            Esta pagina no existe...
           </h1>
         </Jumbotron>
       </AnimatedView>

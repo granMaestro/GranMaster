@@ -1,22 +1,13 @@
 'use strict';
+ 
+///////////////////////////////////////////////////////////////////////////
+///////////***********     llamo a las librerias        ****//////////////
+//////////////////////////////////////////////////////////////////////////
 let filePluginLib = require('mongoose-file');
 let mongoose = require('mongoose');
 let path = require('path');
-
-
+let moment   = require('moment');
 let Schema = mongoose.Schema;
-let filePlugin = filePluginLib.filePlugin;
-let make_upload_to_model = filePluginLib.make_upload_to_model;
-  
-
-
-let uploads_base = path.join(__dirname, "public/uploads");
-let uploads = path.join(uploads_base, "u");
-
-//////////////////////////////////////////////////////////////////////
-///////////***********     llamo a moongoose        ****//////////////
-//////////////////////////////////////////////////////////////////////
-
 
 
 
@@ -28,18 +19,7 @@ let Prueba = new Schema({
 	slug:        String,
 	descripcion: String,
 	imagen:      String,
-	createdAt:   { type: Date, default: Date.now },
-});
-
-
-
-//////////////////////////////////////////////////////////////////////////////
-////////***********     funcion que sube la imagen	        ****//////////////
-//////////////////////////////////////////////////////////////////////////////
-Prueba.plugin(filePlugin, {
-    name: "files",
-    upload_to: make_upload_to_model(uploads, 'photos'),
-    relative_to: uploads_base
+	createdAt:   { type: String, default: moment().format('YYYY-MM-DD h:mm:ss') }
 });
 
 //////////////////////////////////////////////////////////////////////////////

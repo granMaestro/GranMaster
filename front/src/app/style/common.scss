@@ -2,16 +2,15 @@
 @import "./_mixins";
 
 
-$backgroundNav : #177393;
-//$url : 'http://localhost:8080/public/assets/img/';
-$url : 'http://162.243.239.222/public/assets/img/';
+$backgroundNav : #ffffff;
+
 
 body{
-	background: #f9f9fb
+	background: #f2f2f3;
 }
 @mixin btn() {
-	background: $backgroundNav;
-	border-radius:0;
+	background:orange;
+	border-radius:10px;
 	color: white;
 	border: none;
 	padding: 12px 19px;
@@ -36,20 +35,25 @@ body{
 
 ///// nav ///////
 .navbar.navbar-default{
- 	background: $backgroundNav;
+	background: $backgroundNav;
+	box-shadow: 0px 2px 5px 2px rgba(128, 128, 128, 0.47);
 	 	.navbar-brand{
-	 		height:auto
+			color: orange;
+			font-size: 28px;
+			position: relative;
+			top: 15px;
 	 	}
 	 	.navbar-nav>li>a{
 			color: white;
-			font-size: 20px;
-			padding: 31px 20px;
+			font-size: 25px;
+    		padding: 31px 20px;
+    		background: orange;
 	 	}	
 }
 .bars-icon{
 	float: left;
     position: relative;
-    color: white;
+    color: #0e0a8c;
     font-size: 36px;
     top: 23px;
     cursor: pointer;

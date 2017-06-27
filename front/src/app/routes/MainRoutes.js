@@ -5,32 +5,38 @@ import {
   Route,
   Switch
  }                              from 'react-router';
+ 
 import {
-  ConnectedHome,
-  ConnectedAbout
-}                               from '../containers';
-import {
-  Registrarse,
-  actionPerfil,
-  Cuenta,
-  actionCategoria,
+  ///// necesarias para el sitio /////
+  Home,
+  PageNotFound,
   Ingresar,
-  Test,
-  PageNotFound
+
+  /////// administrador ///////
+  actionPrueba,
+  actionPregunta,
+
+  /////// site ///////
+  actionPruebaSite,
+  actionPreguntaSite
 }                               from '../views';
 
 const MainRoutes = () => {
   return (
     <Switch>
-      <Route exact path="/" component={ConnectedHome} />
-      <Route path="/about" component={ConnectedAbout} />
-      
-      <Route path="/registrarse" component={Registrarse} />
-      <Route path="/ingresar" component={Ingresar} />
-      <Route path="/perfil" component={actionPerfil} />
-      <Route path="/cuenta" component={Cuenta} />
-      <Route path="/categoria" component={actionCategoria} />
-      <Route path="/test" component={Test} />
+      {/*////////////////////NECESARIAS//////////////////////////////*/}
+      <Route exact path="/" component={Home} />
+      <Route exact path="/ingresar" component={Ingresar} />
+
+      {/*////////////////////ADMINISTRADOR//////////////////////////////*/}
+      <Route exact path="/prueba" component={actionPrueba} />
+      <Route exact path="/pregunta" component={actionPregunta} />
+
+
+      {/*////////////////////SITE//////////////////////////////*/}
+      <Route exact path="/site_prueba" component={actionPruebaSite} />
+      <Route exact path="/site_pregunta" component={actionPreguntaSite} />
+       
       <Route path="*" component={PageNotFound} />
     </Switch>
   );

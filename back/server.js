@@ -12,6 +12,7 @@ let session      = require('express-session');
 let path          = require('path');
 let categoriaRutas = require('./routes/Categoria.js');
 let pruebaRutas = require('./routes/Prueba.js');
+let preguntaRutas = require('./routes/Pregunta.js');
 
 
 /////////////////////////////////////////////////////////////////////////
@@ -88,6 +89,7 @@ app.use(flash());
 require('./routes/Users.js')(app, passport);
 app.use('/x/v1/cat/categoria', categoriaRutas)
 app.use('/x/v1/pru/prueba', pruebaRutas)
+app.use('/x/v1/pre/pregunta', preguntaRutas)
 
 
 app.listen(port)

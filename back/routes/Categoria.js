@@ -35,6 +35,7 @@ router.post('/', function(req, res){
 
 // modificar
 router.put('/', function(req,res){
+	
 	categoriaServices.modify(req.body, req.query.id, function(err, categorias){
 		if (!err) {
 			res.json({ status: 'SUCCESS', message: 'Categoria Modificada', categoria: categorias });

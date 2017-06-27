@@ -1,21 +1,35 @@
 // @flow weak
 
-import About      from './about/About';
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/// RUTAS NECESARIAS PARA TODO EL SITIO
+//////////////////////////////////////////////////////////////////////////////////////////////////
 import Home       from './home/Home';
-import Registrarse       from './registrarse/registrarse';
-import actionPerfil       from './perfil/actionPerfil';
-import actionCategoria       from './categoria/actionCategoria';
+import PageNotFound       from './pageNotFound/PageNotFound';
 import Ingresar       from './ingresar/ingresar';
-import Cuenta       from './cuenta/cuenta';
-import Test       from './test/test';
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/// RUTAS ADMINISTRADOR
+//////////////////////////////////////////////////////////////////////////////////////////////////
+import actionPrueba       from './admin/prueba/actionPrueba';
+import actionPregunta       from './admin/pregunta/actionPregunta';
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/// RUTAS SITIO
+//////////////////////////////////////////////////////////////////////////////////////////////////
+import actionPruebaSite       from './site/prueba/actionPrueba';
+import actionPreguntaSite       from './site/pregunta/actionPregunta';
 
 export {
-  About,
   Home,
-  Registrarse,
-  actionPerfil,
-  actionCategoria,
+  PageNotFound,
   Ingresar,
-  Cuenta,
-  Test
+  actionPregunta,
+  actionPrueba,
+
+
+  //////site//////
+  actionPruebaSite,
+  actionPreguntaSite
 };

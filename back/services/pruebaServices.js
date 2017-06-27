@@ -26,7 +26,6 @@ class pruebaServices{
 
 	}
 	modify(prueba, id, callback){
- 
 		Prueba.findByIdAndUpdate(id, {$set: {
                             'name'        : prueba.name,
                             'slug'        : prueba.slug,

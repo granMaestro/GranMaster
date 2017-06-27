@@ -14,15 +14,15 @@ export default class Main extends Component {
 		super(props)
 		this.state = {
 			itemsNav:[
-					{icon:'', link:'/cuenta', texto:'Tu Cuenta'},
-					{icon:'', link:'/seguidores', texto:'Seguidores' },
-					{icon:'', link:'/libros_publicados', texto:'Libros Publicados'},
-					{icon:'', link:'/libros_buscas', texto:'Libros que Buscas'},
-					{icon:'', link:'/libros_buscan', texto:'Libros que Buscan' },
-					{icon:'', link:'/comentarios', texto:'Comentarios' },
-					{icon:'', link:'/calificaciones', texto:'Calificaciones' },
-					{icon:'', link:'/novedades', texto:'Novedades' },
-					{icon:'', link:'/categoria', texto:'Categorias' }
+					{icon:'', link:'/usuario',  texto:'Usuarios'},
+					{icon:'', link:'/categoria', texto:'Categorias' },
+					{icon:'', link:'/prueba',   texto:'Pruebas'},
+					{icon:'', link:'/resultado', texto:'Resultados' },
+					{icon:'', link:'/__',   texto:'-----SITIO------'},
+					{icon:'', link:'/site_usuario',   texto:'Usuarios'},
+					{icon:'', link:'/site_categoria', texto:'Categorias' },
+					{icon:'', link:'/site_prueba',    texto:'Pruebas'},
+					{icon:'', link:'/site_resultado', texto:'Resultados' }
 				],
 			animate:false
 		}		
@@ -40,7 +40,7 @@ export default class Main extends Component {
 	}
 	render() {
 		return (
-			<div className={!this.state.animate ? "main-right main-right-hidden" : "main-right"}>	
+			<div className={!this.state.animate ? "main-right main-right-hidden" : "main-right"} id="main-left">	
 				<FontAwesome name='bars' className="bars-icon" onClick={this.updateMain.bind(this)} /> 
 		    <div > 
 			    <ul>

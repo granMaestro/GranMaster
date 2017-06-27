@@ -27,13 +27,13 @@ router.get('/', function(req,res){
 
 // insertar 
 router.post('/:name/:descripcion', upload.single('files'), function(req, res){
- 	if (req.files=='undefined') {
- 		let extension = req.files.files.name.split('.').pop();
+ 		console.log(req.file)
+ 		let extension = req.file.originalname.split('.').pop();
 		pruebaServices.create(req.params, extension, function(err, prueba){
 			if (!err) {
 				res.json({ status: 'SUCCESS', message: 'Categoria Creada', prueba });
 
-				fs.rename(req.files.files.path, path.join(__dirname, "../../front/docs/public/uploads/"+prueba._id+"."+extension));
+				fs.rename(req.file.path, path.join(__dirname, "../../front/docs/public/uploads/prueba/"+prueba._id+"."+extension));
 				console.log(extension)
 
 			}else{
@@ -41,10 +41,8 @@ router.post('/:name/:descripcion', upload.single('files'), function(req, res){
 				console.log("extension")
 			}
 		})	
- 	}
- 	else{
- 		res.json({ status: 'FAIL', message: 'Imagen Obligatorio' });
- 	}
+  
+ 	 
 	
 })
 

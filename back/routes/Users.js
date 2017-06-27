@@ -77,7 +77,7 @@ module.exports = function(app, passport){
     */
     ///////////////////////////////////////////////////////////////////////////
     app.get('/x/v1/user/success_sign_up', function(req, res) {    
-        res.json({ status: 'SUCCESS', message: 'Usuario Creado', user: req.user});        
+        res.json({ status: 'SUCCESS', mensaje: 'Usuario Creado', user: req.user});        
     });
 
 
@@ -87,7 +87,7 @@ module.exports = function(app, passport){
     */
     ///////////////////////////////////////////////////////////////////////////
     app.get('/x/v1/user/fail_sign_up', function(req, res) {    
-        res.json({ status: 'FAIL', message: 'usuario ya existe'});        
+        res.json({ status: 'FAIL', mensaje: 'usuario ya existe'});        
     });
 
 
@@ -109,7 +109,12 @@ module.exports = function(app, passport){
     */
     ///////////////////////////////////////////////////////////////////////////
     app.get('/x/v1/user/perfil', function(req, res){
-        res.json({status:'SUCCESS', user: req.user})    
+        if(req.user){
+            res.json({status:'SUCCESS', user: req.user}) 
+        }else{
+            res.json({status:'FAIL', mensaje: "Usuario sin login"}) 
+        }
+           
     })
 
 
@@ -119,7 +124,8 @@ module.exports = function(app, passport){
     */
     ///////////////////////////////////////////////////////////////////////////
     app.get('/x/v1/user/loginFail', function(req, res){
-        res.json({ status: 'FAIL', message: 'datos incorrectos' });   
+        res.json({ status: 'FAIL', mensaje: 'datos incorrectos' });   
     })
+      
          
 }

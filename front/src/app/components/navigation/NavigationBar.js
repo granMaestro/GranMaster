@@ -5,10 +5,8 @@ import PropTypes          from 'prop-types';
 import {Link}             from 'react-router-dom';
 import Humburger          from './humburger/Humburger';
 import Main             from './main';
-
-
 import axios              from 'axios';
-import logo          from './logo.png'; 
+  
 
 export default class NavigationBar extends Component{
   constructor(props) {
@@ -16,11 +14,14 @@ export default class NavigationBar extends Component{
     this.state = {
       data:[]
     }
+     $(document).click(function(){  
+      $('#main-left').addClass('main-right-hidden'); //hide the button
+    });
   }
   componentWillMount() {
-    axios.get("/x/v1/user/profile")
+    axios.get("/x/v1/user/perfil")
     .then((response)=>{
-      this.setState({data:response.data.user.local})
+      this.setState({data:response.data.user})
     })
     .catch((err)=>{
        
@@ -37,31 +38,25 @@ export default class NavigationBar extends Component{
             }
               <Main />
               <Link to='/' className="navbar-brand">
-            <img src={logo} className='img-responsive' /> 
+            GRAND MASTER
           </Link>
           </div>
           <div
             className="collapse navbar-collapse"
             id="bs-example-navbar-collapse-1">
               {
-
-                data.email
+                data
                 ?<ul className="nav navbar-nav navbar-right">
                   <li>
-                    <Link to="/profile">{data.email}</Link>
+                    <Link to="/profile">{data.nombre}</Link>
                   </li>
                 </ul>
                 :<ul className="nav navbar-nav navbar-right">
                   <li>
                     <Link to="/ingresar">Ingresar</Link>
                   </li>
-                  <li>
-                    <Link to="/registrarse">Registrarse</Link>
-                  </li>
                 </ul>
               }
-              
-            
           </div>
         </div>
       </nav>
