@@ -4,7 +4,7 @@ front/node_modules
 node_modules
 
 .idea/
-
+front/docs/public/assets/
 front/build/
 front/dist/
 front/public/assets/

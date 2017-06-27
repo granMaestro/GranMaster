@@ -14,16 +14,20 @@ export default class PreguntaSite extends Component {
   constructor(props){
     super(props);
     this.state ={
+      nPreguntas:null,
+      pregunta: 0,
       exitoso: false,
       fallo : false,
       pruebaId:null,
       dataPregunta:[]
     }  
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.anteriorPregunta = this.anteriorPregunta.bind(this)
+    this.siguientePregunta = this.siguientePregunta.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
-      this.setState({dataPregunta:nextProps.dataPregunta, pruebaId:nextProps.pruebaId})
+      this.setState({dataPregunta:nextProps.dataPregunta, pruebaId:nextProps.pruebaId, nPreguntas:nextProps.dataPregunta.length-1})
   }
 
 
@@ -31,10 +35,11 @@ export default class PreguntaSite extends Component {
   // RENDERIZO LAS PREGUNTAS, EN MEDIO DE UNA TABLA
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   renderPregunta(){
-    return this.state.dataPregunta.map((index, key)=>{
+    const {dataPregunta, pregunta} = this.state;
+    return dataPregunta.map((index, key)=>{
       return(
-        <Row key={key}>
-          <form>
+        <Row key={key}  style={{display: key==pregunta ? 'block' : 'none' }}>
+          <form className={'as'+key}>
             <Col md={12}>
                 <h2>{index.titulo}</h2>
             </Col>
@@ -56,16 +61,23 @@ export default class PreguntaSite extends Component {
     })
   }
 
+  anteriorPregunta(){
+   this.setState({pregunta:this.state.pregunta-1}) 
+  }
+  siguientePregunta(){
+   this.setState({pregunta:this.state.pregunta+1}) 
+  }
  
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // RENDERIZO TODO LA PAGINA / LLAMO LOS ELEMENTOS DESDE LAS OTRAS FUNCIONES
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   render(){
+    const {pregunta, nPreguntas} = this.state
     return(
       <Grid className="formulario">
-         
         {this.renderPregunta()}
-        
+        <button onClick={this.anteriorPregunta.bind(this)} style={{display: pregunta==0 ? 'none' : 'block' }}>Anterior</button>
+        <button onClick={this.siguientePregunta.bind(this)} style={{display: pregunta==nPreguntas ? 'none' : 'block' }}>Siguiente</button>
       </Grid>
     )
   }
