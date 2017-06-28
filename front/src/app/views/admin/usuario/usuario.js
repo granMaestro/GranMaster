@@ -31,7 +31,7 @@ export default class Usuario extends Component {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // RENDERIZO LAS PRUEBAS, EN MEDIO DE UNA TABLA
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
   renderUsuarios(){
       const {dataUsuario} = this.state
       console.log(dataUsuario)
@@ -78,13 +78,15 @@ export default class Usuario extends Component {
       <Grid className="formulario">
         <Row>
           <form  onSubmit={this.handleSubmit.bind(this)} encType="multipart/form-data" id="formulario">
-            <label htmlFor="nombre">Insertar </label>
-            <input type="text" id="nombre" placeholder=""></input>
-            <label htmlFor="descripcion">Descripcion </label>
-            <input type="text" id="descripcion" placeholder=""></input>
-            <label htmlFor="descripcion"></label>
-            <input type="file" id="files" name="files" onChange={(e)=>this.handleImageChange(e)} />
-            <button type="submit" className="btn-site">Guardar </button>
+            <label htmlFor="nombre">nombre </label>
+            <input type="text" id="nombre" placeholder="nombre"></input>
+            <label htmlFor="apellido">apellido </label>
+            <input type="text" id="apellido" placeholder="apellido"></input>
+            <label htmlFor="usuario">usuario </label>
+            <input type="text" id="usuario" placeholder="usuario"></input> 
+            <label htmlFor="email">email </label>
+            <input type="text" id="email" placeholder="email"></input>
+            <button type="submit" className="btn btn-site">Guardar </button>
           </form>
           <div className={this.state.exitoso ? '' : 'esconder' } > SE CREO LA CATEGORIA EXITOSAMENTE </div>
           <div className={this.state.fallo ? '' : 'esconder' } > NO SE PUDO CREAR LA CATEGORIA</div>
@@ -109,12 +111,13 @@ export default class Usuario extends Component {
  handleSubmit(e){
   e.preventDefault();
   var files = new FormData($('#formulario')[0]);
-  let name        = $("#nombre").val();
-  let descripcion  = $("#descripcion").val();
- 
+  let nombre      =$("#nombre").val();
+  let apellido    =$("#apellido").val();
+  let usuario     =$("#usuario").val();
+  let email       =$("#email").val();
 
   // inserta la informacion 
-  axios.post('/x/v1/pru/prueba/'+name+'/'+descripcion, files )
+  axios.post('/x/v1/user/sign_up', {nombre, apellido, usuario, email} )
   .then((response)=>{
    if (response.data.status=='SUCCESS') {
     this.setState({ exitoso: true })

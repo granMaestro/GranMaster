@@ -1,3 +1,28 @@
+form{
+	width:50%;
+	border: 1px #ccc;
+	margin: 20px;
+	padding: 20px;
+	background: red;
+}
+label{
+	font-size: 12px;
+	display: block; 
+	width: 100%;
+}
+input{
+	margin-bottom: 20px;
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	border: 1px solid #ccc; 
+}
+input:focus {
+	border: 1px solid #1668C4;
+}
+
+/*
+
 .listado-pruebas{
 	a{
 		color: black;
@@ -9,3 +34,4 @@
 		display: block;
 	}
 }
+*/
