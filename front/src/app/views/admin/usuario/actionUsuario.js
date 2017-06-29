@@ -17,7 +17,7 @@ export default class actionUsuario extends PureComponent {
     .then((response)=>{
       let newData=[]
       response.data.user.filter((obj)=>{
-        newData.push({nombre:obj.nombre, email:obj.email})
+        newData.push({nombre:obj.nombre, email:obj.email, usuario: obj.local.usuario, tipo: obj.tipo[0]})
       }) 
       this.setState({dataUsuario: newData})
     })

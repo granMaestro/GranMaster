@@ -13,13 +13,14 @@ class categoriaServices{
 
 	}
 	get(callback){
-		Categoria.find({},callback)
+		Categoria.find({}).populate('categoriaPadreId').exec(callback)
 	}
 	create(categoria, callback){
 		var newCategoria = new Categoria({
 			name: categoria.name,
 			slug: categoria.slug,
 			descripcion: categoria.descripcion,
+			categoriaPadreId: categoria.PadreId,
 		});
 		newCategoria.save(callback)
 

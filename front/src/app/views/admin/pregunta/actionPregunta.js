@@ -7,6 +7,7 @@ export default class actionPregunta extends PureComponent {
 		super(props);
 		this.state ={
       dataPregunta:[],
+      dataCategoria:[],
 			pruebaId:null
 		}
 
@@ -16,7 +17,24 @@ export default class actionPregunta extends PureComponent {
     var parameterValue = decodeURIComponent(window.location.search.match(/(\?|&)pruebaId\=([^&]*)/)[2]);
     axios.get("/x/v1/pre/pregunta/"+parameterValue)
     .then((response)=>{
-      this.setState({dataPregunta:response.data.pregunta, pruebaId:response.data.pruebaId })
+      let newdataPregunta= [];
+      response.data.pregunta.filter((obj)=>{
+        newdataPregunta.push({titulo:obj.titulo, estado:obj.estado, name:obj.CategoriaId.name })
+      })
+      console.log(response.data.pregunta)
+      this.setState({dataPregunta:newdataPregunta, pruebaId:response.data.pruebaId })
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+
+    axios.get("/x/v1/cat/categoria/")
+    .then((response)=>{
+      let newData=[]
+      response.data.categoria.filter((obj)=>{
+          newData.push({value:obj._id, label:obj.name})
+      })
+      this.setState({dataCategoria:newData})
     })
     .catch((err)=>{
       console.log(err)
@@ -24,7 +42,7 @@ export default class actionPregunta extends PureComponent {
   }
   render(){
   	return(
-      <Pregunta dataPregunta={this.state.dataPregunta} pruebaId={this.state.pruebaId} />
+      <Pregunta dataPregunta={this.state.dataPregunta} pruebaId={this.state.pruebaId}  dataCategoria={this.state.dataCategoria} />
   	 
   	)
   }

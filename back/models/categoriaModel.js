@@ -1,22 +1,14 @@
 'use strict';
+ 
+
+//////////////////////////////////////////////////////////////////////
+///////////***********     llamo a las librerias        ****//////////////
+//////////////////////////////////////////////////////////////////////
 let filePluginLib = require('mongoose-file');
 let mongoose = require('mongoose');
 let path = require('path');
-
-
-let Schema = mongoose.Schema;
-let filePlugin = filePluginLib.filePlugin;
-let make_upload_to_model = filePluginLib.make_upload_to_model;
-  
-
-
-let uploads_base = path.join(__dirname, "public/uploads");
-let uploads = path.join(uploads_base, "u");
-
-//////////////////////////////////////////////////////////////////////
-///////////***********     llamo a moongoose        ****//////////////
-//////////////////////////////////////////////////////////////////////
-
+let moment   = require('moment');
+let Schema=mongoose.Schema;
 
 
 
@@ -28,15 +20,10 @@ let Categoria = new Schema({
 	slug:        String,
 	descripcion: String,
 	imagen:      String,
-	createdAt:   { type: Date, default: Date.now },
+	categoriaPadreId: {type: Schema.ObjectId, ref:'Categoria'},
+	createdAt:   { type: String, default: moment().format('YYYY-MM-DD h:mm:ss') }
 });
 
-
-
-//////////////////////////////////////////////////////////////////////////////
-////////***********     funcion que sube la imagen	        ****//////////////
-//////////////////////////////////////////////////////////////////////////////
- 
 
 //////////////////////////////////////////////////////////////////////////////
 ////////***********    exporto el esquema        ****/////////////////////////

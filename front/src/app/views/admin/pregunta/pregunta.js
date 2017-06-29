@@ -6,8 +6,9 @@ import validator     from 'validator';
 import axios from 'axios';
 import FontAwesome   from 'react-fontawesome';
 import {Grid, Row, Col, Modal, Button} from "react-bootstrap";
-
- 
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
+import update from 'react-addons-update';
 
 
 export default class Pregunta extends Component {
@@ -17,13 +18,15 @@ export default class Pregunta extends Component {
       exitoso: false,
       fallo : false,
       pruebaId:null,
-      dataPregunta:[]
+      dataPregunta:[],
+      dataCategoria:[]
     }  
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.changeCategoria = this.changeCategoria.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
-      this.setState({dataPregunta:nextProps.dataPregunta, pruebaId:nextProps.pruebaId})
+      this.setState({dataPregunta:nextProps.dataPregunta, pruebaId:nextProps.pruebaId, dataCategoria: nextProps.dataCategoria})
   }
 
 
@@ -34,11 +37,14 @@ export default class Pregunta extends Component {
     return this.state.dataPregunta.map((index, key)=>{
       return(
         <Row key={key}>
-          <Col md={8}>
-              <h2>{index.titulo}</h2>
+          <Col md={4}>
+              <p>{index.titulo}</p>
           </Col>
           <Col md={4}>
-              <h2>{index.estado}</h2>
+              <p>{index.name}</p>
+          </Col>
+          <Col md={4}>
+              <p>{index.estado}</p>
           </Col>
         </Row>  
       )
@@ -50,11 +56,19 @@ export default class Pregunta extends Component {
   // RENDERIZO TODO LA PAGINA / LLAMO LOS ELEMENTOS DESDE LAS OTRAS FUNCIONES
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   render(){
+    const {dataCategoria} = this.state
     return(
       <Grid className="formulario">
         <Row>
           <form  onSubmit={this.handleSubmit.bind(this)} encType="multipart/form-data" id="formulario">
             <label htmlFor="titulo">Titulo </label>
+            <Select
+                placeholder="Categoria"
+                name="categoriaPadre"
+                options={dataCategoria}
+                value={this.state.valueCategoria}
+                onChange={(e)=>this.changeCategoria(e)} 
+              />
             <input type="text" id="titulo" placeholder="Titulo"></input>
             <button type="submit" className="btn-site">Guardar </button>
           </form>
@@ -63,8 +77,11 @@ export default class Pregunta extends Component {
            
         </Row> 
         <Row>
-          <Col md={8} >
+          <Col md={4} >
               <h3>Titulo</h3>
+          </Col>
+          <Col md={4} >
+              <h3>Categoria</h3>
           </Col>
           <Col md={4} >
               <h3>Estado</h3>
@@ -76,18 +93,24 @@ export default class Pregunta extends Component {
     )
   }
 
+  changeCategoria(valueCategoria) {
+    this.setState({ valueCategoria });
+  }
  
  handleSubmit(e){
   e.preventDefault();
   let titulo   = $("#titulo").val();
   let estado   = 'Activo';
   let pruebaId = this.state.pruebaId
+  let CategoriaId = this.state.valueCategoria.value
+  let CategoriaValue = this.state.valueCategoria.label
 
   // inserta la informacion 
-  axios.post('/x/v1/pre/pregunta/', {titulo, estado, pruebaId} )
+  axios.post('/x/v1/pre/pregunta/', {titulo, estado, pruebaId, CategoriaId} )
   .then((response)=>{
    if (response.data.status=='SUCCESS') {
-    this.setState({ exitoso: true })
+    let newData = update(this.state.dataPregunta, {$unshift:[{titulo:titulo, estado:estado,  name: CategoriaValue }]})
+    this.setState({ dataPregunta: newData, showModal:false})
    }else{
     this.setState({ fallo: true})
    }

@@ -25,7 +25,9 @@ body{
 .invisible {
   opacity: 0;
 }
-
+.esconder{
+	display: none
+}
 .view-enter {
   @include fade-in(0s, 0.7s, ease-in);
    z-index: 9999;

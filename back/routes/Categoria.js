@@ -22,7 +22,7 @@ router.get('/', function(req,res){
 })
 
 
-// insertar 
+// Crear Categoria
 router.post('/', function(req, res){
 	categoriaServices.create(req.body, function(err, categoria){
 		if (!err) {
@@ -32,6 +32,7 @@ router.post('/', function(req, res){
 		}
 	})	
 })
+
 
 // modificar
 router.put('/', function(req,res){

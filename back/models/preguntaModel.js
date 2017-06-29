@@ -15,7 +15,7 @@ let Pregunta = new Schema({
 	titulo:String,
 	estado:String,
 	//genero:{type: Schema.Types.ObjectId, ref:"Genero"},
-	categoriaId: {type: Schema.ObjectId, ref:'Categoria'},
+	CategoriaId: {type: Schema.ObjectId, ref:'Categoria'},
 	pruebaId: {type: Schema.ObjectId, ref:'Prueba'},
 	usuarioId: {type: Schema.ObjectId, ref:'User'},
 })

@@ -12,10 +12,10 @@ class preguntaServices{
 
 	}
 	get(callback){
-		Pregunta.find({},callback)	
+		Pregunta.find({}).populate('CategoriaId').exec(callback)
 	}
 	getByPrueba(pruebaId, callback){
-		Pregunta.find({pruebaId: pruebaId}, callback)	
+		Pregunta.find({pruebaId: pruebaId}).populate('CategoriaId').exec(callback)
 	}
 	create(pregunta, idUser, callback){
 		var newPregunta = new Pregunta({

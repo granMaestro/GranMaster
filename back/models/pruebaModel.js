@@ -5,7 +5,6 @@
 //////////////////////////////////////////////////////////////////////////
 let filePluginLib = require('mongoose-file');
 let mongoose = require('mongoose');
-let path = require('path');
 let moment   = require('moment');
 let Schema = mongoose.Schema;
 
